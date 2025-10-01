@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Encrypt/Decrypt App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Encryption / Decryption Tool</h1>
+    <form method="POST" id="cryptoForm">
+        <label for="text">Text:</label>
+        <textarea id="text" name="text" rows="4" placeholder="Enter text here..." required></textarea>
+
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required>
+
+        <div class="buttons">
+            <button type="submit" name="action" value="encrypt">Encrypt</button>
+            <button type="submit" name="action" value="decrypt">Decrypt</button>
+        </div>
+    </form>
+
+    <label for="output">Result:</label>
+    <textarea id="output" rows="4" readonly>{{ result }}</textarea>
+
+    <div class="buttons">
+        <button type="button" onclick="copyToClipboard()">Copy to Clipboard</button>
+        <button type="button" onclick="resetForm()">Reset</button>
+    </div>
+</div>
+
+<script>
+function copyToClipboard() {
+    const output = document.getElementById("output");
+    if (!output.value) return;
+    navigator.clipboard.writeText(output.value).then(() => {
+        alert("Copied to clipboard!");
+    });
+}
+
+function resetForm() {
+    document.getElementById("cryptoForm").reset();
+    document.getElementById("output").value = "";
+}
+</script>
+</body>
+</html>
